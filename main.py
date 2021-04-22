@@ -1,7 +1,7 @@
 import json
 
 
-# funÃ§Ã£o para escrever em um arquivo json (olhar na pasta do seu projeto, serÃ¡ criado um
+# função para escrever em um arquivo json (olhar na pasta do seu projeto, será criado um
 # arquivo .json com o nome da tabela passada por parÃ¢metro)
 def escrever_json(data, file_name):
     with open(file_name + '.json', 'w') as f:
