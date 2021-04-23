@@ -61,7 +61,6 @@ def ler_json(file_name):
         with open(file_name + '.json', 'r') as arquivo:
 
             data = json.load(arquivo)
-            print(data)
             arquivo.close()
             return data
 
