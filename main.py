@@ -1,41 +1,56 @@
 import json
 
-
-# função para escrever em um arquivo json (olhar na pasta do seu projeto, será criado um
+# Função para escrever em um arquivo json (olhar na pasta do seu projeto, será criado um
 # arquivo .json com o nome da tabela passada por parâmetro)
+
 def escrever_json(data, file_name):
-    with open(file_name + '.json', 'w') as f:
-        json.dump(data, f, indent=4)
-        f.close()
+
+    with open(file_name + '.json', 'w') as file:
+        json.dump(data, file, indent=4)
+        file.close()
 
 
-# função para ler em um arquivo json e colocar em memória
+# Função para ler em um arquivo Json e colocar em memória
+
 def ler_json(file_name):
+
     data = {}
+
     try:
-        with open(file_name + '.json', 'r') as f:
-            data = json.load(f)
-            f.close()
+
+        with open(file_name + '.json', 'r') as file:
+
+            data = json.load(file)
+            file.close()
             return data
+
     except FileNotFoundError:
+
         escrever_json(data, file_name)
         return data
 
 
-# função para criar um novo registro em um arquivo json
+# Função para criar um novo registro em um arquivo Json
+# Parei aqui - Gustavo
 def criar_novo_registro(file_name):
+
     data = ler_json(file_name)
     novo = {}
     id = '1'
     ids = [int(k) for k in data.keys()]
+
     if len(ids) != 0:
         id = str(max(ids) + 1)
+
     colunas = eval(file_name)
     print('INCLUSÃO', file_name, '\n')
+
     for coluna in colunas:
+
         print('Informe', coluna)
         valor = input()
         novo[coluna] = valor
+
     data[id] = novo
     escrever_json(data, file_name)
 
@@ -131,10 +146,6 @@ def listar_registro(file_name):
 def finalizar_programa():
     print('Finalizando o programa...')
     exit(0)
-
-
-def limpar_tela():
-    print('\n' * 100)
 
 
 def operacao(tabela):
