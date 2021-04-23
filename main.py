@@ -34,7 +34,7 @@ def ler_registro(file_name):
         if identificador in data.keys():
 
             registro = data[identificador]
-            print('Registro = ', registro)
+            print('Registro =', registro)
             break
 
         else:
@@ -104,26 +104,21 @@ def remover_registro(file_name):
     print('EXCLUSÃO', file_name, '\n')
     registro, identificador = ler_registro(file_name)
 
-    if registro is None:
+    if registro is None or identificador is None:
         print('O ID do registro não pode ser nulo!')
-
     else:
         print('Confirma a remoção do ID:', identificador, '? (s/n)\n'
                                                           'OBS: Essa operação não pode ser desfeita!')
         confirma = input().lower()
-
         if 's' in confirma:
-
             data.pop(identificador)
             escrever_json(data, file_name)
             print('Registro', identificador, 'removido!')
-
         else:
             print('A remoção do registro:', identificador, 'foi cancelada!')
 
 
 def criar_novo_registro(file_name):
-
     data = ler_json(file_name)
     novo = {}
     keys = [int(k) for k in data.keys()]
@@ -138,7 +133,6 @@ def criar_novo_registro(file_name):
     print('INCLUSÃO de', file_name, '\n')
 
     for coluna in colunas:
-
         print('Informe', coluna)
         novo[coluna] = input()
 
@@ -148,13 +142,13 @@ def criar_novo_registro(file_name):
 
 def operacao(tabela):
 
-    opcoes = ['1', '2', '9']
+    opcoes = ['1', '9']
 
     while True:
 
         print('\nO que você deseja fazer na base', tabela, ':\n\n'
                                                            '(1) Criar novo registro.\n'
-                                                           '(2) Remover um registro.\n'
+                                                           '(2) Remover um registro'
                                                            '(9) Voltar menu.\n\n'
                                                            'Faça sua escolha: ')
         opcao = input()
@@ -176,19 +170,35 @@ def operacao(tabela):
 
 def menu():
 
-    opcoes = ['1', '9']
+    opcoes = ['1', '2', '9']
 
     while True:
         opcao = input('Selecione a opção desejada:\n\n'
                       '(1) Gerenciar estudantes.\n'
+                      '(2) Gerencias professores.\n'
+                      '(3) Gerencias disciplinas.\n'
                       '(9) Sair.\n\n'
                       'Faça sua escolha: ')
 
         if opcao in opcoes:
 
             if opcao == '1':
+
+                estudantes = ['matrícula', 'nome', 'sobrenome']
                 tabela_de_estudantes = 'estudantes'
                 operacao(tabela_de_estudantes)
+
+            elif opcao == '2':
+
+                professores = ['codigo_professor', 'nome_professor', 'sobrenome_professor']
+                tabela_de_professores = 'professores'
+                operacao(tabela_de_professores)
+
+            elif opcao == '3':
+
+                disciplinas = ['codigo_disciplina', 'nome_disciplina']
+                tabela_de_disciplinas = 'disciplinas'
+                operacao(tabela_de_disciplinas)
 
             elif opcao == '9':
                 break
@@ -201,6 +211,4 @@ def menu():
 
 
 if __name__ == '__main__':
-
-    estudantes = ['matrícula', 'nome', 'sobrenome']
     menu()
