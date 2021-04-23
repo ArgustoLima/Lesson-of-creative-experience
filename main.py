@@ -138,22 +138,26 @@ def limpar_tela():
 
 
 def operacao(tabela):
+
     opcoes = ['1', '9']
     ativo = True
+
     while ativo:
-        limpar_tela()
-        print('O que você deseja fazer na base', tabela, ':\n\n'
+
+        print('\nO que você deseja fazer na base', tabela, ':\n\n'
                                                           '(1) Criar novo registro.\n'
                                                           '(9) Voltar menu.\n\n'
                                                           'Faça sua escolha: ')
-        opcao = input().lower()
+        opcao = input()
 
         if opcao not in opcoes:
             input('Opção inválida! Tente novamente ...')
+
         else:
-            limpar_tela()
+
             if opcao == '1':
                 criar_novo_registro(tabela)
+
             elif opcao == '9':
                 ativo = False
 
