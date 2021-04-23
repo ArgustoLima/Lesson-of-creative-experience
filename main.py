@@ -1,27 +1,6 @@
 import json
 
 
-# função para buscar registros em um arquivo json  a partir de um texto
-def buscar_por_coluna(file_name):
-    data = ler_json(file_name)
-    print('BUSCA', file_name, '\n')
-    if len(data) == 0:
-        print('Base vazia!')
-    else:
-        while True:
-            resultados = {}
-            texto = input('Entre com o termo que deseja buscar: ').lower()
-            for identificador, registro in data.items():
-                for coluna, valor in registro.items():
-                    if texto in valor.lower():
-                        resultados[identificador] = registro
-                        continue
-            print(resultados)
-            refazer = input('Deseja buscar por outro termo? (s/n)')
-            if 's' not in refazer:
-                break
-
-
 def ler_registro(file_name):
 
     data = ler_json(file_name)
@@ -41,6 +20,7 @@ def ler_registro(file_name):
 
             print('\nID sem registro!')
             resposta = input('\nDeseja buscar outro ID? (s/n)').lower()
+
             if 'n' in resposta:
                 break
 
@@ -48,12 +28,15 @@ def ler_registro(file_name):
 
 
 def escrever_json(data, file_name):
+
     with open(file_name + '.json', 'w') as file:
+
         json.dump(data, file, indent=4)
         file.close()
 
 
 def ler_json(file_name):
+
     data = {}
 
     try:
@@ -70,27 +53,64 @@ def ler_json(file_name):
         return data
 
 
-# função para atualizar um registro em um arquivo json a partir de um ID
-def atualizar_registro(file_name):
+def buscar_por_coluna(file_name):
+
     data = ler_json(file_name)
-    print('ATUALIZAÇÃO', file_name, '\n')
+    print('\nBUSCA de ', file_name)
+
+    if len(data) == 0:
+        print('Base vazia!')
+
+    else:
+
+        while True:
+
+            resultados = {}
+            texto = input('\nEntre com o termo que deseja buscar: ').lower()
+
+            for identificador, registro in data.items():
+
+                for coluna, valor in registro.items():
+
+                    if texto in valor.lower():
+
+                        resultados[identificador] = registro
+                        continue
+
+            print('\n', resultados)
+            refazer = input('\nDeseja buscar por outro termo? (s/n) ')
+
+            if 's' not in refazer:
+                break
+
+
+def atualizar_registro(file_name):
+
+    data = ler_json(file_name)
+    print('\nATUALIZAÇÃO de ', file_name)
     registro, identificador = ler_registro(file_name)
-    if registro is None or identificador is None:
-        print('O ID do registro não pode ser nulo!')
+
+    if registro is None:
+        print('\nO ID do registro não pode ser nulo!')
+
     colunas = eval(file_name)
+
     for coluna in colunas:
-        valor = input('Informe {coluna}: ')
-        registro[coluna] = valor
+        registro[coluna] = input(f'\nInforme {coluna}: ')
+
     data[identificador] = registro
     escrever_json(data, file_name)
-    print('Registro {identificador} alterado!')
+    print(f'\nRegistro {identificador} alterado!')
 
 
 def listar_registro(file_name):
+
     data = ler_json(file_name)
-    print('LISTAGEM', file_name, '\n')
+    print('\nLISTAGEM', file_name)
+
     if len(data) == 0:
         print('Base vazia!')
+
         # função precisa ser complementada
     # else:
 
@@ -108,7 +128,7 @@ def remover_registro(file_name):
 
     else:
         print('\nConfirma a remoção do ID:', identificador, '? (s/n)\n'
-                                                          'OBS: Essa operação não pode ser desfeita!')
+                                                            'OBS: Essa operação não pode ser desfeita!')
         confirma = input().lower()
 
         if 's' in confirma:
@@ -122,6 +142,7 @@ def remover_registro(file_name):
 
 
 def criar_novo_registro(file_name):
+
     data = ler_json(file_name)
     novo = {}
     keys = [int(k) for k in data.keys()]
@@ -136,6 +157,7 @@ def criar_novo_registro(file_name):
     print('\nINCLUSÃO de', file_name)
 
     for coluna in colunas:
+
         print('\nInforme', coluna)
         novo[coluna] = input()
 
@@ -145,13 +167,16 @@ def criar_novo_registro(file_name):
 
 def operacao(tabela):
 
-    opcoes = ['1', '2', '9']
+    opcoes = ['1', '2', '3', '4', '9']
 
     while True:
 
         print('\nO que você deseja fazer na base', tabela, ':\n\n'
                                                            '(1) Criar novo registro.\n'
                                                            '(2) Remover um registro.\n'
+                                                           '(3) Atualizar um registro.\n'
+                                                           '(4) Buscar Registro.\n'
+                                                           '(5) Listar Registro.\n'
                                                            '(9) Voltar menu.\n')
         opcao = input('Faça sua escolha: ')
 
@@ -163,16 +188,24 @@ def operacao(tabela):
             if opcao == '1':
                 criar_novo_registro(tabela)
 
-            if opcao == '2':
+            elif opcao == '2':
                 remover_registro(tabela)
 
-            elif opcao == '9':
+            elif opcao == '3':
+                atualizar_registro(tabela)
+
+            elif opcao == '4':
+                buscar_por_coluna(tabela)
+
+            elif opcao == '5':
+                listar_registro(tabela)
+
+            else:
                 break
 
 
 def menu():
-
-    opcoes = ['1', '2', '3', '9']
+    opcoes = ['1', '2', '3', '4', '9']
 
     while True:
         opcao = input('Selecione a opção desejada:\n\n'
