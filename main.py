@@ -1,60 +1,5 @@
 import json
 
-# Função para escrever em um arquivo json (olhar na pasta do seu projeto, será criado um
-# arquivo .json com o nome da tabela passada por parâmetro)
-
-def escrever_json(data, file_name):
-
-    with open(file_name + '.json', 'w') as file:
-        json.dump(data, file, indent=4)
-        file.close()
-
-
-# Função para ler em um arquivo Json e colocar em memória
-
-def ler_json(file_name):
-
-    data = {}
-
-    try:
-
-        with open(file_name + '.json', 'r') as file:
-
-            data = json.load(file)
-            file.close()
-            return data
-
-    except FileNotFoundError:
-
-        escrever_json(data, file_name)
-        return data
-
-
-# Função para criar um novo registro em um arquivo Json
-# Parei aqui - Gustavo
-def criar_novo_registro(file_name):
-
-    data = ler_json(file_name)
-    novo = {}
-    id = '1'
-    ids = [int(k) for k in data.keys()]
-
-    if len(ids) != 0:
-        id = str(max(ids) + 1)
-
-    colunas = eval(file_name)
-    print('INCLUSÃO', file_name, '\n')
-
-    for coluna in colunas:
-
-        print('Informe', coluna)
-        valor = input()
-        novo[coluna] = valor
-
-    data[id] = novo
-    escrever_json(data, file_name)
-
-
 def ler_registro(file_name):
     data = ler_json(file_name)
     registro = None
@@ -82,7 +27,6 @@ def atualizar_registro(file_name):
     registro, identificador = ler_registro(file_name)
     if registro is None or identificador is None:
         print('O ID do registro não pode ser nulo!')
-        finalizar_programa()
     colunas = eval(file_name)
     for coluna in colunas:
         valor = input('Informe {coluna}: ')
@@ -143,17 +87,60 @@ def listar_registro(file_name):
     input('Tecle uma tecla para continuar ...')
 
 
-def finalizar_programa():
-    print('Finalizando o programa...')
-    exit(0)
+def escrever_json(data, file_name):
+
+    with open(file_name + '.json', 'w') as file:
+
+        json.dump(data, file, indent = 4)
+        file.close()
+
+
+def ler_json(file_name):
+
+    data = {}
+
+    try:
+
+        with open(file_name + '.json', 'r') as arquivo:
+
+            data = json.load(arquivo)
+            print(data)
+            arquivo.close()
+            return data
+
+    except FileNotFoundError:
+
+        escrever_json(data, file_name)
+        return data
+
+
+def criar_novo_registro(file_name):
+
+    data = ler_json(file_name)
+    novo = {}
+    id = '1'
+    ids = [int(k) for k in data.keys()]
+
+    if len(ids) != 0:
+        id += 1
+
+    colunas = file_name
+    print('INCLUSÃO', file_name, '\n')
+
+    for coluna in colunas:
+
+        print('Informe', coluna)
+        novo[coluna] = input()
+
+    data[id] = novo
+    escrever_json(data, file_name)
 
 
 def operacao(tabela):
 
     opcoes = ['1', '9']
-    ativo = True
 
-    while ativo:
+    while True:
 
         print('\nO que você deseja fazer na base', tabela, ':\n\n'
                                                           '(1) Criar novo registro.\n'
@@ -162,7 +149,7 @@ def operacao(tabela):
         opcao = input()
 
         if opcao not in opcoes:
-            input('Opção inválida! Tente novamente ...')
+            input('\nOpção inválida! Tente novamente ...')
 
         else:
 
@@ -170,16 +157,14 @@ def operacao(tabela):
                 criar_novo_registro(tabela)
 
             elif opcao == '9':
-                ativo = False
+                break
 
 
 def menu(tabela_estudantes):
 
     opcoes = ['1', '9']
-    ativo = True
 
-    while ativo:
-
+    while True:
         opcao = input('Selecione a opção desejada:\n\n'
                       '(1) Gerenciar estudantes.\n'
                       '(9) Sair.\n\n'
@@ -191,17 +176,18 @@ def menu(tabela_estudantes):
                 operacao(tabela_estudantes)
 
             elif opcao == '9':
-                ativo = False
+                break
 
             else:
-                print('Opção inválida! Tente novamente.')
+                print('\nOpção inválida! Tente novamente.')
 
-    finalizar_programa()
+    print('Finalizando o programa...')
+    exit(0)
 
 
 if __name__ == '__main__':
 
     estudantes = ['matrícula', 'nome', 'sobrenome']
-    tabela_estudantes = 'estudantes'
+    tabela_de_estudantes = 'estudantes'
 
-    menu(tabela_estudantes)
+    menu(tabela_de_estudantes)
