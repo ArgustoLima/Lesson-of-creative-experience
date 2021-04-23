@@ -124,7 +124,7 @@ def criar_novo_registro(file_name):
     if len(ids) != 0:
         id += 1
 
-    colunas = file_name
+    colunas = eval(file_name)
     print('INCLUSÃO', file_name, '\n')
 
     for coluna in colunas:
