@@ -26,19 +26,23 @@ def ler_registro(file_name):
 
     data = ler_json(file_name)
     registro = None
-    identificador = None
-    sim = True
-    while sim:
+
+    while True:
+
         identificador = input('Entre com o ID:')
+
         if identificador in data.keys():
+
             registro = data[identificador]
             print('Registro =', registro)
-            sim = False
+            break
+
         else:
+
             print('ID sem registro!')
             resposta = input('Deseja buscar outro ID? (s/n)').lower()
             if 'n' in resposta:
-                sim = False
+                break
 
     return registro, identificador
 
