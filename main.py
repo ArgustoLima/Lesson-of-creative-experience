@@ -1,5 +1,6 @@
 import json
 
+
 def ler_registro(file_name):
     data = ler_json(file_name)
     registro = None
@@ -45,7 +46,7 @@ def remover_registro(file_name):
         print('O ID do registro não pode ser nulo!')
     else:
         print('Confirma a remoção do ID:', identificador, '? (s/n)\n'
-                                                            'OBS: Essa operação não pode ser desfeita!')
+                                                          'OBS: Essa operação não pode ser desfeita!')
         confirma = input().lower()
         if 's' in confirma:
             data.pop(identificador)
@@ -91,7 +92,7 @@ def escrever_json(data, file_name):
 
     with open(file_name + '.json', 'w') as file:
 
-        json.dump(data, file, indent = 4)
+        json.dump(data, file, indent=4)
         file.close()
 
 
@@ -118,21 +119,23 @@ def criar_novo_registro(file_name):
 
     data = ler_json(file_name)
     novo = {}
-    id = '1'
-    ids = [int(k) for k in data.keys()]
+    keys = [int(k) for k in data.keys()]
 
-    if len(ids) != 0:
-        id += 1
+    if len(keys) != 0:
+        key = str(max(keys) + 1)
+
+    else:
+        key = '1'
 
     colunas = eval(file_name)
-    print('INCLUSÃO', file_name, '\n')
+    print('INCLUSÃO de', file_name, '\n')
 
     for coluna in colunas:
 
         print('Informe', coluna)
         novo[coluna] = input()
 
-    data[id] = novo
+    data[key] = novo
     escrever_json(data, file_name)
 
 
@@ -143,9 +146,9 @@ def operacao(tabela):
     while True:
 
         print('\nO que você deseja fazer na base', tabela, ':\n\n'
-                                                          '(1) Criar novo registro.\n'
-                                                          '(9) Voltar menu.\n\n'
-                                                          'Faça sua escolha: ')
+                                                           '(1) Criar novo registro.\n'
+                                                           '(9) Voltar menu.\n\n'
+                                                           'Faça sua escolha: ')
         opcao = input()
 
         if opcao not in opcoes:
