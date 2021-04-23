@@ -29,18 +29,18 @@ def ler_registro(file_name):
 
     while True:
 
-        identificador = input('Entre com o ID:')
+        identificador = input('\nEntre com o ID: ')
 
         if identificador in data.keys():
 
             registro = data[identificador]
-            print('Registro =', registro)
+            print('\nRegistro = ', registro)
             break
 
         else:
 
-            print('ID sem registro!')
-            resposta = input('Deseja buscar outro ID? (s/n)').lower()
+            print('\nID sem registro!')
+            resposta = input('\nDeseja buscar outro ID? (s/n)').lower()
             if 'n' in resposta:
                 break
 
@@ -100,21 +100,25 @@ def listar_registro(file_name):
 def remover_registro(file_name):
 
     data = ler_json(file_name)
-    print('EXCLUSÃO', file_name, '\n')
+    print('\nEXCLUSÃO de ', file_name)
     registro, identificador = ler_registro(file_name)
 
     if registro is None or identificador is None:
-        print('O ID do registro não pode ser nulo!')
+        print('\nO ID do registro não pode ser nulo!')
+
     else:
-        print('Confirma a remoção do ID:', identificador, '? (s/n)\n'
+        print('\nConfirma a remoção do ID:', identificador, '? (s/n)\n'
                                                           'OBS: Essa operação não pode ser desfeita!')
         confirma = input().lower()
+
         if 's' in confirma:
+
             data.pop(identificador)
             escrever_json(data, file_name)
-            print('Registro', identificador, 'removido!')
+            print('\nRegistro', identificador, 'removido!')
+
         else:
-            print('A remoção do registro:', identificador, 'foi cancelada!')
+            print('\nA remoção do registro:', identificador, 'foi cancelada!')
 
 
 def criar_novo_registro(file_name):
@@ -129,10 +133,10 @@ def criar_novo_registro(file_name):
         key = '1'
 
     colunas = eval(file_name)
-    print('INCLUSÃO de', file_name, '\n')
+    print('\nINCLUSÃO de', file_name)
 
     for coluna in colunas:
-        print('Informe', coluna)
+        print('\nInforme', coluna)
         novo[coluna] = input()
 
     data[key] = novo
@@ -141,16 +145,15 @@ def criar_novo_registro(file_name):
 
 def operacao(tabela):
 
-    opcoes = ['1', '9']
+    opcoes = ['1', '2', '9']
 
     while True:
 
         print('\nO que você deseja fazer na base', tabela, ':\n\n'
                                                            '(1) Criar novo registro.\n'
-                                                           '(2) Remover um registro'
-                                                           '(9) Voltar menu.\n\n'
-                                                           'Faça sua escolha: ')
-        opcao = input()
+                                                           '(2) Remover um registro.\n'
+                                                           '(9) Voltar menu.\n')
+        opcao = input('Faça sua escolha: ')
 
         if opcao not in opcoes:
             input('\nOpção inválida! Tente novamente ...')
@@ -169,7 +172,7 @@ def operacao(tabela):
 
 def menu():
 
-    opcoes = ['1', '2', '9']
+    opcoes = ['1', '2', '3', '9']
 
     while True:
         opcao = input('Selecione a opção desejada:\n\n'
@@ -182,20 +185,14 @@ def menu():
         if opcao in opcoes:
 
             if opcao == '1':
-
-                estudantes = ['matrícula', 'nome', 'sobrenome']
                 tabela_de_estudantes = 'estudantes'
                 operacao(tabela_de_estudantes)
 
             elif opcao == '2':
-
-                professores = ['codigo_professor', 'nome_professor', 'sobrenome_professor']
                 tabela_de_professores = 'professores'
                 operacao(tabela_de_professores)
 
             elif opcao == '3':
-
-                disciplinas = ['codigo_disciplina', 'nome_disciplina']
                 tabela_de_disciplinas = 'disciplinas'
                 operacao(tabela_de_disciplinas)
 
@@ -210,4 +207,8 @@ def menu():
 
 
 if __name__ == '__main__':
+
+    estudantes = ['matrícula', 'nome', 'sobrenome']
+    professores = ['codigo_professor', 'nome_professor', 'sobrenome_professor']
+    disciplinas = ['codigo_disciplina', 'nome_disciplina']
     menu()
