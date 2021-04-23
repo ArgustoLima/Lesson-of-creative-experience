@@ -158,20 +158,26 @@ def operacao(tabela):
                 ativo = False
 
 
-def menu():
+def menu(tabela_estudantes):
+
     opcoes = ['1', '9']
     ativo = True
+
     while ativo:
-        limpar_tela()
+
         opcao = input('Selecione a opção desejada:\n\n'
                       '(1) Gerenciar estudantes.\n'
                       '(9) Sair.\n\n'
-                      'Faça sua escolha: ').lower()
+                      'Faça sua escolha: ')
+
         if opcao in opcoes:
+
             if opcao == '1':
-                operacao(tabela1)
+                operacao(tabela_estudantes)
+
             elif opcao == '9':
                 ativo = False
+
             else:
                 print('Opção inválida! Tente novamente.')
 
@@ -179,12 +185,8 @@ def menu():
 
 
 if __name__ == '__main__':
-    # definindo os nomes das colunas para a tabela estudantes
+
     estudantes = ['matrícula', 'nome', 'sobrenome']
-    tabela1 = 'estudantes'  # nome da tabela deve ser o mesmo nome da variável
+    tabela_estudantes = 'estudantes'
 
-    # Seguindo o mesmo exemplo de criação das tabelas pode-se criar quantas
-    # forem necessárias
-
-    # chamada principal do programa
-    menu()
+    menu(tabela_estudantes)
