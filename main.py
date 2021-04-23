@@ -188,7 +188,3 @@ if __name__ == '__main__':
 
     # chamada principal do programa
     menu()
-
-
-
-#Girata
