@@ -205,11 +205,15 @@ def operacao(tabela):
 
 
 def menu():
-    opcoes = ['1', '9']
+    opcoes = ['1', '2', '3', '4', '5', '9']
 
     while True:
         opcao = input('Selecione a opção desejada:\n\n'
                       '(1) Gerenciar estudantes.\n'
+                      '(2) Gerenciar professores.\n'
+                      '(3) Gerenciar disciplinas.\n'
+                      '(4) Gerenciar turmas.\n'
+                      '(5) Gerenciar matriculas.\n'
                       '(9) Sair.\n\n'
                       'Faça sua escolha: ')
 
@@ -218,6 +222,21 @@ def menu():
             if opcao == '1':
                 tabela_de_estudantes = 'estudantes'
                 operacao(tabela_de_estudantes)
+
+            elif opcao == '2':
+                tabela_de_professores = 'professores'
+                operacao(tabela_de_professores)
+
+            elif opcao == '3':
+                tabela_de_disciplinas = 'disciplinas'
+                operacao(tabela_de_disciplinas)
+            elif opcao == '4':
+                tabela_de_turmas = 'turmas'
+                operacao(tabela_de_turmas)
+
+            elif opcao == '5':
+                tabela_de_matriculas = 'matriculas'
+                operacao(tabela_de_matriculas)
 
             elif opcao == '9':
                 break
@@ -232,4 +251,9 @@ def menu():
 if __name__ == '__main__':
 
     estudantes = ['matrícula', 'nome', 'sobrenome']
+    professores = ['codigo_professor', 'nome_professor', 'sobrenome_professor']
+    disciplinas = ['codigo_disciplina', 'nome_disciplina']
+    turmas = ['codigo_turma', 'cod_professor', 'cod_disciplina']
+    matriculas = ['codigo_turma', 'codigo_estudante']
     menu()
+
