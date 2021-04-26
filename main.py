@@ -13,7 +13,7 @@ def ler_registro(file_name):
         if identificador in data.keys():
 
             registro = data[identificador]
-            print('\nRegistro = ', registro)
+            print(f'\nRegistro = {registro}')
             break
 
         else:
@@ -78,7 +78,7 @@ def buscar_por_coluna(file_name):
                         continue
 
             print('\n', resultados)
-            refazer = input('\nDeseja buscar por outro termo? (s/n) ')
+            refazer = input('\nDeseja buscar por outro termo? (s/n) ').lower()
 
             if 's' not in refazer:
                 break
@@ -127,7 +127,7 @@ def remover_registro(file_name):
         print('\nO ID do registro não pode ser nulo!')
 
     else:
-        print('\nConfirma a remoção do ID:', identificador, '? (s/n)\n'
+        print(f'\nConfirma a remoção do ID: {identificador}? (s/n)\n'
                                                             'OBS: Essa operação não pode ser desfeita!')
         confirma = input().lower()
 
@@ -135,10 +135,10 @@ def remover_registro(file_name):
 
             data.pop(identificador)
             escrever_json(data, file_name)
-            print('\nRegistro', identificador, 'removido!')
+            print(f'\nRegistro {identificador} removido!')
 
         else:
-            print('\nA remoção do registro:', identificador, 'foi cancelada!')
+            print(f'\nA remoção do registro: {identificador} foi cancelada!')
 
 
 def criar_novo_registro(file_name):
