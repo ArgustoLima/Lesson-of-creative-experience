@@ -216,6 +216,7 @@ def menu():
                       '(5) Gerenciar matriculas.\n'
                       '(9) Sair.\n\n'
                       'Faça sua escolha: ')
+        print('\n' * 15)
 
         if opcao in opcoes:
 
