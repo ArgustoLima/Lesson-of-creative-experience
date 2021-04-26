@@ -215,6 +215,7 @@ def menu():
                       '(4) Gerenciar turmas.\n'
                       '(5) Gerenciar matriculas.\n'
                       '(9) Sair.\n\n'
+                      'SUA MÃE\n'
                       'Faça sua escolha: ')
 
         if opcao in opcoes:
