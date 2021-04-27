@@ -56,7 +56,7 @@ def ler_json(file_name):
 def buscar_por_coluna(file_name):
 
     data = ler_json(file_name)
-    print('\nBUSCA de ', file_name)
+    print(f'\nBusca de {file_name}:')
 
     if len(data) == 0:
         print('Base vazia!')
@@ -87,7 +87,7 @@ def buscar_por_coluna(file_name):
 def atualizar_registro(file_name):
 
     data = ler_json(file_name)
-    print('\nATUALIZAÇÃO de ', file_name)
+    print(f'\nAtualização de {file_name}:')
     registro, identificador = ler_registro(file_name)
 
     if registro is None:
@@ -106,13 +106,14 @@ def atualizar_registro(file_name):
 def listar_registro(file_name):
 
     data = ler_json(file_name)
-    print('\nLISTAGEM', file_name)
+    print(f'\nListagem de {file_name}:')
 
     if len(data) == 0:
         print('Base vazia!')
 
-        # função precisa ser complementada
-    # else:
+    else:
+        for key in data.keys():
+            print(f'{data[key]}')
 
     input('Tecle uma tecla para continuar ...')
 
@@ -120,16 +121,15 @@ def listar_registro(file_name):
 def remover_registro(file_name):
 
     data = ler_json(file_name)
-    print('\nEXCLUSÃO de ', file_name)
+    print(f'\nExclusão de {file_name}:')
     registro, identificador = ler_registro(file_name)
 
     if registro is None or identificador is None:
         print('\nO ID do registro não pode ser nulo!')
 
     else:
-        print(f'\nConfirma a remoção do ID: {identificador}? (s/n)\n'
-                                                            'OBS: Essa operação não pode ser desfeita!')
-        confirma = input().lower()
+        print('OBS: Essa operação não pode ser desfeita!')
+        confirma = input(f'Confirma a remoção do ID: {identificador}? (s/n)').lower()
 
         if 's' in confirma:
 
@@ -154,12 +154,11 @@ def criar_novo_registro(file_name):
         key = '1'
 
     colunas = eval(file_name)
-    print('\nINCLUSÃO de', file_name)
+    print(f'\nInclusão de {file_name}:')
 
     for coluna in colunas:
 
-        print('\nInforme', coluna)
-        novo[coluna] = input()
+        novo[coluna] = input(f'\nInforme {coluna}: ')
 
     data[key] = novo
     escrever_json(data, file_name)
@@ -167,11 +166,11 @@ def criar_novo_registro(file_name):
 
 def operacao(tabela):
 
-    opcoes = ['1', '2', '3', '4', '9']
+    opcoes = ['1', '2', '3', '4', '5', '9']
 
     while True:
 
-        print('\nO que você deseja fazer na base', tabela, ':\n\n'
+        print(f'\nO que você deseja fazer na base {tabela}:\n\n'
                                                            '(1) Criar novo registro.\n'
                                                            '(2) Remover um registro.\n'
                                                            '(3) Atualizar um registro.\n'
