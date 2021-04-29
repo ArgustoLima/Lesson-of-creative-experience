@@ -1,7 +1,7 @@
 import json
 
 
-def ler_registro(file_name):
+def ler_registro(file_name):  # 4°
     data = ler_json(file_name)
     registro = None
 
@@ -26,13 +26,13 @@ def ler_registro(file_name):
     return registro, identificador
 
 
-def escrever_json(data, file_name):
+def escrever_json(data, file_name):  # 3°
     with open(file_name + '.json', 'w') as file:
         json.dump(data, file, indent=4)
         file.close()
 
 
-def ler_json(file_name):
+def ler_json(file_name):  # Marcos 2° a falar
     data = {}
 
     try:
@@ -49,7 +49,7 @@ def ler_json(file_name):
         return data
 
 
-def buscar_por_coluna(file_name):
+def buscar_por_coluna(file_name):  # 5°
     data = ler_json(file_name)
     print(f'\nBusca de {file_name}:')
 
@@ -78,7 +78,7 @@ def buscar_por_coluna(file_name):
                 break
 
 
-def atualizar_registro(file_name):
+def atualizar_registro(file_name):  # 4°
     data = ler_json(file_name)
     print(f'\nAtualização de {file_name}:')
     registro, identificador = ler_registro(file_name)
@@ -96,7 +96,7 @@ def atualizar_registro(file_name):
     print(f'\nRegistro {identificador} alterado!')
 
 
-def listar_registro(file_name):
+def listar_registro(file_name):  # 5°
     data = ler_json(file_name)
     print(f'\nListagem de {file_name}:')
 
@@ -110,7 +110,7 @@ def listar_registro(file_name):
     input('Tecle uma tecla para continuar ...')
 
 
-def remover_registro(file_name):
+def remover_registro(file_name):  # 3°
     data = ler_json(file_name)
     print(f'\nExclusão de {file_name}:')
     registro, identificador = ler_registro(file_name)
@@ -132,7 +132,7 @@ def remover_registro(file_name):
             print(f'\nA remoção do registro: {identificador} foi cancelada!')
 
 
-def criar_novo_registro(file_name):
+def criar_novo_registro(file_name):  # Marcos 2° a falar
     data = ler_json(file_name)
     novo = {}
     keys = [int(k) for k in data.keys()]
@@ -153,7 +153,7 @@ def criar_novo_registro(file_name):
     escrever_json(data, file_name)
 
 
-def operacao(tabela):
+def operacao(tabela):  # 1°
     opcoes = ['1', '2', '3', '4', '5', '9']
 
     while True:
@@ -191,7 +191,7 @@ def operacao(tabela):
                 break
 
 
-def menu():
+def menu():  # 1°
     opcoes = ['1', '2', '3', '4', '5', '9']
 
     while True:
@@ -236,10 +236,12 @@ def menu():
     exit(0)
 
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # 1°
     estudantes = ['matrícula', 'nome', 'sobrenome']
     professores = ['codigo_professor', 'nome_professor', 'sobrenome_professor']
     disciplinas = ['codigo_disciplina', 'nome_disciplina']
     turmas = ['codigo_turma', 'cod_professor', 'cod_disciplina']
     matriculas = ['codigo_turma', 'codigo_estudante']
     menu()
+
+
